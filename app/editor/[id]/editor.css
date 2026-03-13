@@ -38,8 +38,8 @@
 }
 
 .editor-title-input {
-  background: transparent;
-  border: 1px solid transparent;
+  background: var(--bg-tertiary);
+  border: 1px dashed var(--border-medium);
   color: var(--text-primary);
   font-size: 0.95rem;
   font-weight: 600;
@@ -52,7 +52,8 @@
 
 .editor-title-input:focus {
   border-color: var(--accent-primary);
-  background: var(--bg-tertiary);
+  border-style: solid;
+  background: var(--bg-card);
 }
 
 .editor-topbar-center {

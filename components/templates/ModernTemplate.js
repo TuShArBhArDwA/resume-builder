@@ -5,9 +5,11 @@ export default function ModernTemplate({ data }) {
     <div className="resume-modern">
       {/* Sidebar */}
       <div className="modern-sidebar">
-        <div className="modern-avatar">
-          {(personal_info.name || 'U').charAt(0).toUpperCase()}
-        </div>
+        {personal_info.photoUrl && (
+          <div className="modern-avatar">
+            <img src={personal_info.photoUrl} alt={personal_info.name} className="modern-avatar-img" />
+          </div>
+        )}
         <h1 className="modern-name">{personal_info.name || 'Your Name'}</h1>
         <p className="modern-title">{personal_info.title || 'Professional Title'}</p>
 

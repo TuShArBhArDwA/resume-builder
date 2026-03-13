@@ -23,13 +23,15 @@ export default function EditorPage() {
   const [resume, setResume] = useState({
     title: 'Untitled Resume',
     template_id: 'classic',
-    personal_info: { name: '', title: '', email: '', phone: '', location: '', linkedin: '' },
+    personal_info: { name: '', title: '', email: '', phone: '', location: '', linkedin: '', photoUrl: '' },
     summary: '',
     experience: [],
     education: [],
     skills: [],
     custom_sections: [],
   });
+
+  const [isUploading, setIsUploading] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem('user');
@@ -199,6 +201,40 @@ export default function EditorPage() {
     }));
   };
 
+  const handleImageUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || !process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET) {
+      alert('Cloudinary configuration is missing. Please add cloud name and preset to your .env.local file.');
+      return;
+    }
+
+    setIsUploading(true);
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
+
+    try {
+      const res = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await res.json();
+      
+      if (data.secure_url) {
+        updatePersonalInfo('photoUrl', data.secure_url);
+      } else {
+        throw new Error(data.error?.message || 'Upload failed');
+      }
+    } catch (error) {
+      console.error('Upload Error:', error);
+      alert(`Failed to upload image: ${error.message}`);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   const handleSkillKeyDown = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -358,6 +394,36 @@ export default function EditorPage() {
                 <label className="form-label">LinkedIn</label>
                 <input className="form-input" value={resume.personal_info.linkedin || ''} onChange={(e) => updatePersonalInfo('linkedin', e.target.value)} placeholder="linkedin.com/in/johndoe" />
               </div>
+              {resume.template_id === 'modern' && (
+                <div className="form-group">
+                  <label className="form-label">Photo Upload (Cloudinary)</label>
+                  <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                    <label className={`btn btn-primary ${isUploading ? 'loading' : ''}`} style={{ cursor: 'pointer', margin: 0 }}>
+                      {isUploading ? 'Uploading...' : (resume.personal_info.photoUrl ? 'Change Photo' : 'Upload Photo')}
+                      <input 
+                        type="file" 
+                        accept="image/*" 
+                        onChange={handleImageUpload} 
+                        disabled={isUploading}
+                        style={{ display: 'none' }} 
+                      />
+                    </label>
+                    {resume.personal_info.photoUrl && (
+                      <button 
+                        className="btn btn-ghost btn-sm"
+                        onClick={() => updatePersonalInfo('photoUrl', '')}
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                  {resume.personal_info.photoUrl && (
+                    <div style={{ marginTop: '10px' }}>
+                       <img src={resume.personal_info.photoUrl} alt="Profile" style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '50%' }} />
+                    </div>
+                  )}
+                </div>
+              )}
             </div>
           </div>
 
@@ -576,8 +642,8 @@ export default function EditorPage() {
               <div key={i} className="form-entry">
                 <div className="form-entry-header">
                   <input
-                    className="editor-title-input"
-                    style={{ fontSize: '1rem', padding: '0' }}
+                    className="form-input"
+                    style={{ flex: 1, marginRight: '1rem', fontWeight: 'bold' }}
                     value={sec.title}
                     onChange={(e) => updateCustomSection(i, 'title', e.target.value)}
                     placeholder="Section Title (e.g. Projects)"

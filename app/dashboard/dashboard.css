@@ -83,6 +83,7 @@
   width: 794px; /* A4 width approx */
   height: 1123px; /* A4 height approx */
   pointer-events: none;
+  flex-shrink: 0;
 }
 
 .resume-card-template-badge {
