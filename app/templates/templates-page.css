@@ -71,41 +71,31 @@
   z-index: 10;
 }
 
-/* Mock Graphics for Template Preview */
-.template-mock {
-  width: 160px;
-  height: 200px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-medium);
-  border-radius: 4px;
-  padding: 16px;
-  box-shadow: var(--shadow-lg);
+/* Previews */
+.template-preview-container {
+  width: 100%;
+  height: 100%;
   display: flex;
-  flex-direction: column;
-  transform: translateY(20px);
-  transition: all var(--transition-base);
+  justify-content: center;
+  background: var(--bg-tertiary);
 }
 
-.template-card:hover .template-mock {
-  transform: translateY(10px);
+.template-preview-scale {
+  transform: scale(0.3);
+  transform-origin: top center;
+  width: 794px;
+  height: 1123px;
+  pointer-events: none;
+  background: white;
+  margin-top: 1.5rem;
+  flex-shrink: 0;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
 }
 
-.mock-line {
-  height: 4px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 2px;
-  margin-bottom: 6px;
-}
-
-.mock-title {
-  height: 8px;
-  background: var(--accent-primary);
-  margin-bottom: 8px;
-}
-
-.mock-subtitle {
-  height: 5px;
-  background: var(--text-muted);
+.template-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent-primary);
 }
 
 /* Card Body */

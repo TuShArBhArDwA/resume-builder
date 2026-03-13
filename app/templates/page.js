@@ -4,7 +4,29 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import UpgradeModal from '@/components/UpgradeModal';
+import ResumePreview from '@/components/ResumePreview';
 import './templates-page.css';
+
+const DUMMY_DATA = {
+  personal_info: {
+    name: 'Alex Developer',
+    title: 'Software Engineer',
+    email: 'alex@cvflow.com',
+    phone: '+1 (555) 123-4567',
+    location: 'San Francisco, CA',
+    linkedin: 'linkedin.com/in/alexdev',
+    photoUrl: 'https://res.cloudinary.com/dkdhdiqy0/image/upload/v1700000000/placeholder_avatar_dxfkqo.jpg', 
+  },
+  summary: 'Passionate software engineer with 5+ years of experience building scalable, high-performance web applications using modern Javascript frameworks.',
+  experience: [
+    { title: 'Senior Developer', company: 'Tech Corp', startDate: '2020', endDate: 'Present', description: 'Led frontend architecture.' }
+  ],
+  education: [
+    { degree: 'B.S. Computer Science', school: 'University of Tech', startDate: '2016', endDate: '2020' }
+  ],
+  skills: ['React', 'Next.js', 'Node.js', 'TypeScript'],
+  custom_sections: []
+};
 
 export default function TemplatesPage() {
   const [user, setUser] = useState(null);
@@ -114,7 +136,7 @@ export default function TemplatesPage() {
             <div key={template.id} className="template-card card">
               <div
                 className="template-card-preview"
-                style={{ background: template.color }}
+                style={{ height: '300px' }}
               >
                 {!template.free && (
                   <div className="template-card-badge">
@@ -124,20 +146,9 @@ export default function TemplatesPage() {
                     PRO
                   </div>
                 )}
-                {/* Mock preview graphic */}
-                <div className="template-mock">
-                  <div className="mock-line mock-title" style={{ width: '40%' }}></div>
-                  <div className="mock-line" style={{ width: '20%' }}></div>
-                  <div className="mock-section" style={{ marginTop: '20px' }}>
-                    <div className="mock-line mock-subtitle" style={{ width: '30%' }}></div>
-                    <div className="mock-line" style={{ width: '100%' }}></div>
-                    <div className="mock-line" style={{ width: '90%' }}></div>
-                    <div className="mock-line" style={{ width: '95%' }}></div>
-                  </div>
-                  <div className="mock-section" style={{ marginTop: '20px' }}>
-                    <div className="mock-line mock-subtitle" style={{ width: '40%' }}></div>
-                    <div className="mock-line" style={{ width: '100%' }}></div>
-                    <div className="mock-line" style={{ width: '85%' }}></div>
+                <div className="template-preview-container">
+                  <div className="template-preview-scale">
+                    <ResumePreview templateId={template.id} data={DUMMY_DATA} />
                   </div>
                 </div>
               </div>

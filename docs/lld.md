@@ -27,10 +27,17 @@
 
 ### C. PDF Render Logic
 - **Library**: `html2pdf.js` (Wrapper for `jspdf` and `html2canvas`).
-- **Optimization**: Uses `useCORS: true` to ensure Cloudinary photos are rendered in the PDF without cross-origin tainting.
+- **Optimization**: Uses `useCORS: true` for photos. Enforces **fixed 794px width** in the render container to match browser prints exactly.
+
+### D. Preview Scaling Logic
+- **Mechanism**: CSS `transform: scale()` on a fixed A4 (794x1123) container.
+- **Scaling Factors**:
+  - Dashboard: `0.2`
+  - Template Modal: `0.3`
+  - Templates Page: `0.35`
 
 ## 3. API Routes
-- `POST /api/resumes`: Initializes a blank record.
+- `POST /api/resumes`: Initializes a record with an optional `template_id` (from selection modal).
 - `PUT /api/resumes/[id]`: Optimized update using JSONB merge.
 - `GET /api/resumes?user_id=...`: Listing for dashboard.
 - `POST /api/upgrade`: Updates user state to unlock premium features.

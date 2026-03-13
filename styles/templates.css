@@ -8,8 +8,9 @@
   color: #1a1a1a;
   background: #ffffff;
   padding: 40px 48px;
-  max-width: 800px;
-  min-height: 1000px;
+  width: 794px;
+  min-height: 1123px;
+  box-sizing: border-box;
 }
 
 .classic-header {
@@ -126,9 +127,10 @@
 .resume-modern {
   font-family: 'Inter', 'Segoe UI', sans-serif;
   display: flex;
-  min-height: 1000px;
+  width: 794px;
+  min-height: 1123px;
   background: #ffffff;
-  max-width: 800px;
+  box-sizing: border-box;
 }
 
 .modern-sidebar {
@@ -306,8 +308,9 @@
   font-family: 'Inter', 'Segoe UI', sans-serif;
   color: #1a1a1a;
   background: #ffffff;
-  max-width: 800px;
-  min-height: 1000px;
+  width: 794px;
+  min-height: 1123px;
+  box-sizing: border-box;
 }
 
 .exec-header {

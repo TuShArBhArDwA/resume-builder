@@ -110,7 +110,7 @@ export default function EditorPage() {
       };
 
       await html2pdf().set(opt).from(element).save();
-      showToast('PDF downloaded!');
+      showToast('PDF generated! Save it to your device.');
     } catch (err) {
       showToast('Download failed', 'error');
     } finally {
@@ -362,13 +362,15 @@ export default function EditorPage() {
         <div className="editor-form">
           {/* Personal Info */}
           <div className="form-section">
-            <h3 className="form-section-title">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-              Personal Information
-            </h3>
+            <div className="form-section-header">
+              <h3 className="form-section-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+                Personal Information
+              </h3>
+            </div>
             <div className="form-grid">
               <div className="form-group">
                 <label className="form-label">Full Name</label>

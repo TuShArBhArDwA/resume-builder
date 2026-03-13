@@ -45,6 +45,8 @@ export default function Home() {
     <div className="landing">
       {/* Background */}
       <div className="landing-bg"></div>
+      <div className="ambient-orb-1"></div>
+      <div className="ambient-orb-2"></div>
 
       {/* Navbar */}
       <nav className="landing-nav">

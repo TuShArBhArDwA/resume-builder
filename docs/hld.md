@@ -15,12 +15,13 @@ The application follows a standard **Full-Stack Serverless Architecture** using 
 
 ## 3. Data Flow
 1. **Authentication**: User logs in via email; session is managed by Supabase/LocalStorage.
-2. **Dashboard**: Fetches resume list from Supabase PostgREST API.
+2. **Dashboard**: Fetches resume list; "New Resume" triggers a **Template Selection Flow** before editor entry.
 3. **Editor**: 
    - User inputs data into a structured state.
    - AI Assist triggers REST calls to Gemini to populate/refine fields.
-   - Photo Upload hits Cloudinary API directly and stores the URL in the resume object.
-4. **Export**: The HTML preview is converted to a high-quality PDF using `html2pdf.js` in the client.
+   - Photo Upload hits Cloudinary API directly.
+4. **Consistency**: All templates and previews enforce a strict A4 aspect ratio (794x1123px) via CSS variables to prevent distortion.
+5. **Export**: The HTML preview is converted to a high-quality PDF using `html2pdf.js` in the client.
 
 ## 4. Tech Stack Reasons
 - **Next.js**: Hybrid rendering (SSR for SEO/Landing, CSR for Editor).

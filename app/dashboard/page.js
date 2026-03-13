@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import UpgradeModal from '@/components/UpgradeModal';
+import TemplateSelectionModal from '@/components/TemplateSelectionModal';
 import ResumePreview from '@/components/ResumePreview';
 import './dashboard.css';
 
@@ -12,6 +13,7 @@ export default function Dashboard() {
   const [resumes, setResumes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showUpgrade, setShowUpgrade] = useState(false);
+  const [showTemplateModal, setShowTemplateModal] = useState(false);
   const [toast, setToast] = useState(null);
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const router = useRouter();
@@ -39,18 +41,21 @@ export default function Dashboard() {
     }
   };
 
-  const createResume = async () => {
+  const createResume = async (templateId = 'classic') => {
     try {
+      setLoading(true);
+      setShowTemplateModal(false);
       const res = await fetch('/api/resumes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ user_id: user.id }),
+        body: JSON.stringify({ user_id: user.id, template_id: templateId }),
       });
       const data = await res.json();
       if (data.resume) {
         router.push(`/editor/${data.resume.id}`);
       }
     } catch (err) {
+      setLoading(false);
       showToast('Failed to create resume', 'error');
     }
   };
@@ -120,7 +125,7 @@ export default function Dashboard() {
                 Upgrade to Pro
               </button>
             )}
-            <button className="btn btn-primary" onClick={createResume}>
+            <button className="btn btn-primary" onClick={() => setShowTemplateModal(true)}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="12" y1="5" x2="12" y2="19" />
                 <line x1="5" y1="12" x2="19" y2="12" />
@@ -148,7 +153,7 @@ export default function Dashboard() {
             </div>
             <h3>No resumes yet</h3>
             <p>Create your first resume and start building your career story</p>
-            <button className="btn btn-primary btn-lg" onClick={createResume} style={{ marginTop: '1rem' }}>
+            <button className="btn btn-primary btn-lg" onClick={() => setShowTemplateModal(true)} style={{ marginTop: '1rem' }}>
               Create Your First Resume
             </button>
           </div>
@@ -206,7 +211,7 @@ export default function Dashboard() {
             ))}
 
             {/* Add New Card */}
-            <div className="resume-card-new" onClick={createResume}>
+            <div className="resume-card-new" onClick={() => setShowTemplateModal(true)}>
               <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <line x1="12" y1="5" x2="12" y2="19" />
                 <line x1="5" y1="12" x2="19" y2="12" />
@@ -236,6 +241,15 @@ export default function Dashboard() {
       {/* Upgrade Modal */}
       {showUpgrade && (
         <UpgradeModal onClose={() => setShowUpgrade(false)} onUpgrade={handleUpgrade} />
+      )}
+
+      {/* Template Selection Modal */}
+      {showTemplateModal && (
+        <TemplateSelectionModal 
+          user={user} 
+          onClose={() => setShowTemplateModal(false)} 
+          onSelect={(templateId) => createResume(templateId)} 
+        />
       )}
 
       {/* Toast */}

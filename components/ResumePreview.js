@@ -25,6 +25,8 @@ export default function ResumePreview({ data, templateId = 'classic' }) {
           overflow: hidden;
           box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
           transform-origin: top center;
+          width: 794px;
+          height: 1123px;
         }
       `}</style>
     </div>

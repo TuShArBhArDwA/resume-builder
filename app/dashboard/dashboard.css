@@ -80,10 +80,12 @@
 .resume-preview-thumbnail > div {
   transform: scale(0.2);
   transform-origin: top center;
-  width: 794px; /* A4 width approx */
-  height: 1123px; /* A4 height approx */
+  width: 794px; /* A4 width */
+  height: 1123px; /* A4 height */
   pointer-events: none;
   flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: white;
 }
 
 .resume-card-template-badge {
