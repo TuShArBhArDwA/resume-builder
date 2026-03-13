@@ -1,0 +1,154 @@
+/* Dashboard Styles */
+.dashboard-page {
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+.dashboard-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--spacing-2xl) var(--spacing-xl);
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-2xl);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.dashboard-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.dashboard-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+.dashboard-header-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.dashboard-loading {
+  text-align: center;
+  padding: var(--spacing-3xl);
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+/* Resume Grid */
+.resume-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.resume-card {
+  animation: fadeInUp 0.4s ease backwards;
+  cursor: default;
+}
+
+.resume-card-preview {
+  height: 140px;
+  background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.resume-card-preview::after {
+  content: '';
+  position: absolute;
+  inset: 16px;
+  border: 1px dashed var(--border-medium);
+  border-radius: var(--radius-sm);
+}
+
+.resume-card-template-badge {
+  padding: 0.2rem 0.6rem;
+  background: var(--bg-glass);
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: var(--text-secondary);
+  backdrop-filter: blur(8px);
+  z-index: 1;
+}
+
+.resume-card-body {
+  padding: var(--spacing-lg);
+}
+
+.resume-card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.resume-card-meta {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-bottom: var(--spacing-md);
+}
+
+.resume-card-actions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+/* Add New Card */
+.resume-card-new {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  min-height: 230px;
+  border: 2px dashed var(--border-medium);
+  border-radius: var(--radius-lg);
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  font-size: 0.9rem;
+}
+
+.resume-card-new:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+  background: rgba(108, 99, 255, 0.05);
+}
+
+/* Empty State */
+.empty-state .empty-icon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--bg-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .resume-grid {
+    grid-template-columns: 1fr;
+  }
+}
