@@ -1,4 +1,5 @@
 # Resume Builder Tool
+<img width="1861" height="892" alt="image" src="https://github.com/user-attachments/assets/68106ba2-d6e9-44ae-a0fd-1eb030c893eb" />
 
 A modern, full-stack, AI-powered web application for creating, editing, and downloading beautiful, professional resumes.
 
