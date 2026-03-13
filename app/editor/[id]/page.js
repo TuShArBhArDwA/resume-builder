@@ -28,6 +28,7 @@ export default function EditorPage() {
     experience: [],
     education: [],
     skills: [],
+    custom_sections: [],
   });
 
   useEffect(() => {
@@ -51,6 +52,7 @@ export default function EditorPage() {
           experience: data.resume.experience || [],
           education: data.resume.education || [],
           skills: data.resume.skills || [],
+          custom_sections: data.resume.personal_info?.custom_sections || [],
         });
       }
     } catch (err) {
@@ -69,7 +71,10 @@ export default function EditorPage() {
         body: JSON.stringify({
           title: resume.title,
           template_id: resume.template_id,
-          personal_info: resume.personal_info,
+          personal_info: {
+            ...resume.personal_info,
+            custom_sections: resume.custom_sections
+          },
           summary: resume.summary,
           experience: resume.experience,
           education: resume.education,
@@ -170,6 +175,27 @@ export default function EditorPage() {
     setResume((prev) => ({
       ...prev,
       skills: prev.skills.filter((_, i) => i !== index),
+    }));
+  };
+
+  const addCustomSection = () => {
+    setResume((prev) => ({
+      ...prev,
+      custom_sections: [...(prev.custom_sections || []), { title: '', content: '' }],
+    }));
+  };
+
+  const updateCustomSection = (index, field, value) => {
+    setResume((prev) => ({
+      ...prev,
+      custom_sections: prev.custom_sections.map((sec, i) => i === index ? { ...sec, [field]: value } : sec),
+    }));
+  };
+
+  const removeCustomSection = (index) => {
+    setResume((prev) => ({
+      ...prev,
+      custom_sections: prev.custom_sections.filter((_, i) => i !== index),
     }));
   };
 
@@ -531,6 +557,52 @@ export default function EditorPage() {
 
             {resume.skills.length === 0 && (
               <p className="form-empty">No skills added yet. Type and press Enter, or use AI to suggest skills.</p>
+            )}
+          </div>
+
+          {/* Custom Sections */}
+          <div className="form-section">
+            <div className="form-section-header">
+              <h3 className="form-section-title">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+                Custom Sections
+              </h3>
+              <button className="btn btn-secondary btn-sm" onClick={addCustomSection}>+ Add Section</button>
+            </div>
+
+            {resume.custom_sections?.map((sec, i) => (
+              <div key={i} className="form-entry">
+                <div className="form-entry-header">
+                  <input
+                    className="editor-title-input"
+                    style={{ fontSize: '1rem', padding: '0' }}
+                    value={sec.title}
+                    onChange={(e) => updateCustomSection(i, 'title', e.target.value)}
+                    placeholder="Section Title (e.g. Projects)"
+                  />
+                  <button className="btn btn-danger btn-icon btn-sm" onClick={() => removeCustomSection(i)} title="Remove">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="18" y1="6" x2="6" y2="18" />
+                      <line x1="6" y1="6" x2="18" y2="18" />
+                    </svg>
+                  </button>
+                </div>
+                <div className="form-group" style={{ marginTop: '0.5rem' }}>
+                  <textarea
+                    className="form-textarea"
+                    value={sec.content}
+                    onChange={(e) => updateCustomSection(i, 'content', e.target.value)}
+                    placeholder="Describe your content here..."
+                    rows={4}
+                  />
+                </div>
+              </div>
+            ))}
+
+            {(!resume.custom_sections || resume.custom_sections.length === 0) && (
+              <p className="form-empty">Add extra sections like Projects, Awards, or Languages.</p>
             )}
           </div>
         </div>

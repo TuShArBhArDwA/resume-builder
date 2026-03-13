@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import UpgradeModal from '@/components/UpgradeModal';
+import ResumePreview from '@/components/ResumePreview';
 import './dashboard.css';
 
 export default function Dashboard() {
@@ -156,6 +157,19 @@ export default function Dashboard() {
             {resumes.map((resume, i) => (
               <div key={resume.id} className="resume-card card" style={{ animationDelay: `${i * 0.05}s` }}>
                 <div className="resume-card-preview">
+                  <div className="resume-preview-thumbnail">
+                    <ResumePreview 
+                      templateId={resume.template_id || 'classic'} 
+                      data={{
+                        personal_info: resume.personal_info,
+                        summary: resume.summary,
+                        experience: resume.experience,
+                        education: resume.education,
+                        skills: resume.skills,
+                        custom_sections: resume.personal_info?.custom_sections || []
+                      }} 
+                    />
+                  </div>
                   <div className="resume-card-template-badge">
                     {resume.template_id || 'classic'}
                   </div>

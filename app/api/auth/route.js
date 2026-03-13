@@ -25,12 +25,14 @@ export async function POST(request) {
         .single();
 
       if (createError) {
-        return NextResponse.json({ error: 'Failed to create user' }, { status: 500 });
+        console.error('Supabase Create User Error:', createError);
+        return NextResponse.json({ error: 'Failed to create user', details: createError.message }, { status: 500 });
       }
 
       user = newUser;
     } else if (error) {
-      return NextResponse.json({ error: 'Database error' }, { status: 500 });
+      console.error('Supabase Select User Error:', error);
+      return NextResponse.json({ error: 'Database error', details: error.message }, { status: 500 });
     }
 
     return NextResponse.json({ user });

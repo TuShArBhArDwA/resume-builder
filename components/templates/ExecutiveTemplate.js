@@ -1,5 +1,5 @@
 export default function ExecutiveTemplate({ data }) {
-  const { personal_info = {}, summary = '', experience = [], education = [], skills = [] } = data || {};
+  const { personal_info = {}, summary = '', experience = [], education = [], skills = [], custom_sections = [] } = data || {};
 
   return (
     <div className="resume-executive">
@@ -91,6 +91,14 @@ export default function ExecutiveTemplate({ data }) {
             </div>
           )}
         </div>
+
+        {/* Custom Sections */}
+        {custom_sections?.map((sec, i) => (
+          <div key={i} className="exec-section">
+            <div className="exec-section-label">{sec.title?.toUpperCase() || 'CUSTOM SECTION'}</div>
+            <p className="exec-text" style={{ whiteSpace: 'pre-wrap' }}>{sec.content}</p>
+          </div>
+        ))}
       </div>
     </div>
   );

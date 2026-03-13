@@ -58,33 +58,47 @@
 }
 
 .resume-card-preview {
-  height: 140px;
-  background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
+  height: 200px;
+  background: var(--bg-tertiary);
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  border-bottom: 1px solid var(--border-subtle);
 }
 
-.resume-card-preview::after {
-  content: '';
-  position: absolute;
-  inset: 16px;
-  border: 1px dashed var(--border-medium);
-  border-radius: var(--radius-sm);
+.resume-preview-thumbnail {
+  width: 100%;
+  height: 100%;
+  padding: var(--spacing-sm);
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.resume-preview-thumbnail > div {
+  transform: scale(0.2);
+  transform-origin: top center;
+  width: 794px; /* A4 width approx */
+  height: 1123px; /* A4 height approx */
+  pointer-events: none;
 }
 
 .resume-card-template-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
   padding: 0.2rem 0.6rem;
   background: var(--bg-glass);
+  border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
   font-size: 0.7rem;
   font-weight: 600;
   text-transform: capitalize;
   color: var(--text-secondary);
   backdrop-filter: blur(8px);
-  z-index: 1;
+  z-index: 2;
 }
 
 .resume-card-body {

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import ThemeToggle from '@/components/ThemeToggle';
 import './landing.css';
 
 export default function Home() {
@@ -42,12 +43,8 @@ export default function Home() {
 
   return (
     <div className="landing">
-      {/* Animated Background */}
-      <div className="landing-bg">
-        <div className="bg-orb bg-orb-1"></div>
-        <div className="bg-orb bg-orb-2"></div>
-        <div className="bg-orb bg-orb-3"></div>
-      </div>
+      {/* Background */}
+      <div className="landing-bg"></div>
 
       {/* Navbar */}
       <nav className="landing-nav">
@@ -59,7 +56,10 @@ export default function Home() {
             <line x1="16" y1="17" x2="8" y2="17" />
             <polyline points="10 9 9 9 8 9" />
           </svg>
-          <span>ResumeForge</span>
+          <span>CVFlow</span>
+        </div>
+        <div style={{ marginLeft: 'auto' }}>
+          <ThemeToggle />
         </div>
       </nav>
 
@@ -68,7 +68,7 @@ export default function Home() {
         <div className="hero-content animate-fade-in-up">
           <div className="hero-badge">
             <span className="badge-dot"></span>
-            AI-Powered Resume Builder
+            Professional Resume Builder
           </div>
           <h1 className="hero-title">
             Build Your Dream Resume

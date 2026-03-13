@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import ThemeToggle from '@/components/ThemeToggle';
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
@@ -28,7 +29,7 @@ export default function Navbar() {
           <line x1="16" y1="13" x2="8" y2="13" />
           <line x1="16" y1="17" x2="8" y2="17" />
         </svg>
-        <span>ResumeForge</span>
+        <span>CVFlow</span>
       </a>
 
       <div className="navbar-actions">
@@ -51,6 +52,7 @@ export default function Navbar() {
                 PRO
               </span>
             )}
+            <ThemeToggle />
             <button onClick={handleLogout} className="btn btn-ghost btn-sm">
               Logout
             </button>

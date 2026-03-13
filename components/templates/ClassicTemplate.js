@@ -1,5 +1,5 @@
 export default function ClassicTemplate({ data }) {
-  const { personal_info = {}, summary = '', experience = [], education = [], skills = [] } = data || {};
+  const { personal_info = {}, summary = '', experience = [], education = [], skills = [], custom_sections = [] } = data || {};
 
   return (
     <div className="resume-classic">
@@ -84,6 +84,15 @@ export default function ClassicTemplate({ data }) {
           </div>
         </div>
       )}
+
+      {/* Custom Sections */}
+      {data.custom_sections?.map((sec, i) => (
+        <div key={i} className="classic-section">
+          <h2 className="classic-section-title">{sec.title}</h2>
+          <div className="classic-divider"></div>
+          <p className="classic-text" style={{ whiteSpace: 'pre-wrap' }}>{sec.content}</p>
+        </div>
+      ))}
     </div>
   );
 }

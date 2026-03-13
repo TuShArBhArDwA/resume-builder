@@ -5,59 +5,21 @@
   position: relative;
   min-height: 100vh;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Background Orbs */
+/* Background */
 .landing-bg {
-  position: fixed;
+  position: absolute;
   inset: 0;
-  overflow: hidden;
+  background: var(--bg-primary);
+  background-image: radial-gradient(var(--border-medium) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: -16px -16px;
+  opacity: 0.5;
   z-index: 0;
   pointer-events: none;
-}
-
-.bg-orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.4;
-  animation: float 20s ease-in-out infinite;
-}
-
-.bg-orb-1 {
-  width: 500px;
-  height: 500px;
-  background: var(--accent-primary);
-  top: -150px;
-  right: -100px;
-  opacity: 0.15;
-}
-
-.bg-orb-2 {
-  width: 400px;
-  height: 400px;
-  background: var(--accent-secondary);
-  bottom: -100px;
-  left: -100px;
-  opacity: 0.1;
-  animation-delay: -7s;
-}
-
-.bg-orb-3 {
-  width: 300px;
-  height: 300px;
-  background: var(--accent-gold);
-  top: 50%;
-  left: 50%;
-  opacity: 0.08;
-  animation-delay: -14s;
-}
-
-@keyframes float {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(30px, -30px) scale(1.05); }
-  50% { transform: translate(-20px, 20px) scale(0.95); }
-  75% { transform: translate(10px, -10px) scale(1.02); }
 }
 
 /* Navbar */
