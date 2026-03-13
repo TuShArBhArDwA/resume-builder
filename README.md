@@ -7,6 +7,8 @@ A modern, full-stack, AI-powered web application for creating, editing, and down
 1. **Resume Creation & Editing**:
    - Create multiple resumes per account
    - Split-pane live editor with distinct sections (Personal, Summary, Experience, Education, Skills)
+   - **Template-Specific Profile Photo**: Integrated with Cloudinary for seamless browser-based uploads (Modern template exclusive).
+   - **Custom Sections**: Support for user-defined sections (Projects, Awards, Certifications, etc.) with dynamic rendering.
    - Real-time preview mapping directly to the chosen template
    - Save and later edit through the user dashboard
 
@@ -38,6 +40,7 @@ A modern, full-stack, AI-powered web application for creating, editing, and down
 
 - **Framework**: Next.js 14 App Router
 - **Database**: Supabase PostgreSQL (via `@supabase/supabase-js`)
+- **Image Hosting**: Cloudinary (Unsigned Uploads)
 - **Styling**: Vanilla CSS Variables (Dark theme, glassmorphism)
 - **PDF Generation**: `html2pdf.js`
 - **AI/LLM**: Google Gemini (`generativelanguage.googleapis.com`)
@@ -54,7 +57,11 @@ A modern, full-stack, AI-powered web application for creating, editing, and down
    ```env
    NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-   GEMINI_API_KEY=your_gemini_api_key  # Optional if using fallback
+   GEMINI_API_KEY=your_gemini_api_key
+
+   # Cloudinary Configuration
+   NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloud_name
+   NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET=your_unsigned_preset_name
    ```
 
 3. **Database Schema**:
@@ -64,6 +71,11 @@ A modern, full-stack, AI-powered web application for creating, editing, and down
    ```bash
    npm run dev
    ```
+
+## Documentation
+Detailed design documents are available in the `docs` directory:
+- [High Level Design (HLD)](docs/hld.md) - System architecture and data flow.
+- [Low Level Design (LLD)](docs/lld.md) - Database schema, module logic, and API details.
 
 ## Design Aesthetics (WOW Factor)
 - Cohesive dark mode base with targeted `.glass` and gradient touches.
