@@ -72,7 +72,7 @@ A modern, full-stack, AI-powered web application for creating, editing, and down
    ```
 
 3. **Database Schema**:
-   Run the SQL provided in the `implementation_plan.md` in your Supabase SQL Editor.
+   Run the SQL provided in the [`schema.sql`](schema.sql) in your Supabase SQL Editor.
 
 4. **Run Locally**:
    ```bash
