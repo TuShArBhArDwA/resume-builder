@@ -94,6 +94,24 @@ export default function Navbar() {
           font-size: 0.8rem;
           color: var(--text-muted);
         }
+        @media (max-width: 768px) {
+          .navbar {
+            padding: 0.75rem 1rem;
+          }
+          .navbar-email {
+            display: none;
+          }
+          .navbar-logo span {
+            font-size: 0.95rem;
+          }
+          .navbar-actions {
+            gap: 0.5rem;
+          }
+          .btn-ghost {
+            padding: 0.4rem 0.6rem;
+            font-size: 0.75rem;
+          }
+        }
       `}</style>
     </nav>
   );

@@ -92,19 +92,17 @@ export default function TemplateSelectionModal({ onClose, onSelect, user }) {
                 {/* Live Preview Container */}
                 <div style={{ 
                   width: '100%', 
-                  height: '250px',
+                  height: '340px',
                   backgroundColor: 'var(--bg-tertiary)', 
                   borderBottom: '1px solid var(--border-subtle)',
                   display: 'flex',
                   justifyContent: 'center',
                   overflow: 'hidden',
                   position: 'relative',
+                  paddingTop: '1rem'
                 }}>
                   <div style={{
-                    transform: 'scale(0.3)',
-                    transformOrigin: 'top center',
-                    width: '794px',
-                    height: '1123px',
+                    width: '100%',
                     flexShrink: 0,
                     pointerEvents: 'none',
                     marginTop: '1.25rem',
@@ -155,6 +153,23 @@ export default function TemplateSelectionModal({ onClose, onSelect, user }) {
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
           <button className="btn btn-secondary" onClick={onClose}>Cancel</button>
         </div>
+
+        <style jsx>{`
+          @media (max-width: 768px) {
+            .modal-content {
+              padding: 1.25rem !important;
+              max-height: 90vh;
+              overflow-y: auto;
+            }
+            h2 {
+              font-size: 1.25rem !important;
+            }
+            .template-grid {
+              gap: 1rem !important;
+              grid-template-columns: 1fr !important;
+            }
+          }
+        `}</style>
       </div>
     </div>
   );

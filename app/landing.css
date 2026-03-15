@@ -255,19 +255,47 @@
 }
 
 @media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.25rem;
+  }
+
+  .landing-nav {
+    padding: var(--spacing-md) var(--spacing-lg);
+  }
+
   .landing-hero {
     padding: var(--spacing-xl) var(--spacing-md);
   }
 
   .features-grid {
     grid-template-columns: 1fr;
+    gap: var(--spacing-md);
   }
 
   .form-row {
     flex-direction: column;
+    padding: var(--spacing-md);
+    background: var(--bg-secondary);
+  }
+
+  .hero-input {
+    width: 100%;
+    border: 1px solid var(--border-subtle);
+    padding: 0.75rem;
   }
 
   .hero-btn {
     width: 100%;
+    padding: 0.75rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.85rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 0.95rem;
   }
 }

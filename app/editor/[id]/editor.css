@@ -7,6 +7,7 @@
   background: var(--bg-primary);
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
 }
 
 .editor-loading {
@@ -58,36 +59,35 @@
 
 .editor-topbar-center {
   display: flex;
-  gap: 2px;
+  gap: 4px;
   background: var(--bg-tertiary);
-  padding: 3px;
-  border-radius: var(--radius-md);
+  padding: 4px;
+  border-radius: var(--radius-lg);
+  margin: 0 auto; /* Center it */
+  border: 1px solid var(--border-subtle);
 }
 
 .template-tab {
-  padding: 0.4rem 0.875rem;
-  font-size: 0.8rem;
-  font-weight: 500;
+  padding: 0.5rem 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 600;
   color: var(--text-secondary);
-  border-radius: var(--radius-sm);
-  transition: all var(--transition-fast);
+  border-radius: calc(var(--radius-lg) - 2px);
+  transition: all var(--transition-base);
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
 }
 
-.template-tab:hover {
+.template-tab:hover:not(.locked) {
   color: var(--text-primary);
   background: var(--bg-card);
 }
 
 .template-tab.active {
-  color: var(--text-primary);
+  color: #ffffff;
   background: var(--accent-primary);
-}
-
-.template-tab.locked {
-  color: var(--text-muted);
+  box-shadow: var(--shadow-sm);
 }
 
 .editor-topbar-right {
@@ -237,26 +237,48 @@
 @media (max-width: 1024px) {
   .editor-split {
     flex-direction: column;
+    overflow-y: auto;
   }
   .editor-form,
   .editor-preview {
     width: 100%;
+    overflow: visible;
   }
   .editor-preview {
     border-right: none;
     border-top: 1px solid var(--border-subtle);
+    padding: var(--spacing-lg);
   }
 }
 
 @media (max-width: 768px) {
   .editor-topbar {
-    flex-direction: column;
-    align-items: stretch;
+    padding: var(--spacing-md);
+    gap: var(--spacing-sm);
   }
-  .editor-topbar-left,
-  .editor-topbar-center,
+  .editor-topbar-left {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+  .editor-title-input {
+    width: 100%;
+  }
+  .editor-topbar-center {
+    width: 100%;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 0.5rem;
+  }
   .editor-topbar-right {
-    justify-content: center;
+    width: 100%;
+    flex-direction: column;
+  }
+  .editor-topbar-right .btn {
+    width: 100%;
+  }
+  .editor-form {
+    padding: var(--spacing-lg);
   }
   .form-grid {
     grid-template-columns: 1fr;

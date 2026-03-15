@@ -71,21 +71,17 @@
 .resume-preview-thumbnail {
   width: 100%;
   height: 100%;
-  padding: var(--spacing-sm);
+  padding: 0;
   display: flex;
   justify-content: center;
   overflow: hidden;
+  background: white;
 }
 
+/* Let the ResumePreview component handle the scaling, 
+   but we want it centered and zoomed in slightly for the card */
 .resume-preview-thumbnail > div {
-  transform: scale(0.2);
-  transform-origin: top center;
-  width: 794px; /* A4 width */
-  height: 1123px; /* A4 height */
-  pointer-events: none;
   flex-shrink: 0;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  background: white;
 }
 
 .resume-card-template-badge {
@@ -161,9 +157,20 @@
 }
 
 @media (max-width: 768px) {
+  .dashboard-container {
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
   .dashboard-header {
     flex-direction: column;
     align-items: flex-start;
+    gap: var(--spacing-sm);
+  }
+  .dashboard-header-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+  .dashboard-header-actions .btn {
+    width: 100%;
   }
   .resume-grid {
     grid-template-columns: 1fr;
