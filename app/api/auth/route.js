@@ -9,7 +9,7 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
 
-    // Check if user exists
+    // Check if user exists, otherwise create a new record (shorthand upsert)
     let { data: user, error } = await supabase
       .from('users')
       .select('*')
@@ -17,7 +17,7 @@ export async function POST(request) {
       .single();
 
     if (error && error.code === 'PGRST116') {
-      // User doesn't exist, create one
+      // PGRST116 is the code for "no rows found" - create user on first visit
       const { data: newUser, error: createError } = await supabase
         .from('users')
         .insert([{ email }])

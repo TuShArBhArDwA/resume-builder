@@ -20,6 +20,7 @@ export default function EditorPage() {
   const [showUpgrade, setShowUpgrade] = useState(false);
   const [downloading, setDownloading] = useState(false);
 
+  // Main resume state - initialized with empty fields
   const [resume, setResume] = useState({
     title: 'Untitled Resume',
     template_id: 'classic',
@@ -43,11 +44,13 @@ export default function EditorPage() {
     fetchResume();
   }, [id, router]);
 
+  // Fetch existing resume data from Supabase on mount
   const fetchResume = async () => {
     try {
       const res = await fetch(`/api/resumes/${id}`);
       const data = await res.json();
       if (data.resume) {
+        // Merge data to ensure all keys exist (prevents controlled/uncontrolled input warnings)
         setResume({
           ...data.resume,
           personal_info: data.resume.personal_info || {},
@@ -94,6 +97,7 @@ export default function EditorPage() {
     }
   };
 
+  // Client-side PDF generation using html2pdf.js
   const downloadPDF = async () => {
     setDownloading(true);
     try {
@@ -101,6 +105,7 @@ export default function EditorPage() {
       const element = previewRef.current;
       if (!element) return;
 
+      // PDF options for high quality A4 layout
       const opt = {
         margin: 0,
         filename: `${resume.title || 'resume'}.pdf`,
@@ -206,7 +211,7 @@ export default function EditorPage() {
     if (!file) return;
 
     if (!process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || !process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET) {
-      alert('Cloudinary configuration is missing. Please add cloud name and preset to your .env.local file.');
+      alert('Photo upload is currently unavailable. Please try again later or contact support.');
       return;
     }
 
@@ -374,7 +379,7 @@ export default function EditorPage() {
             <div className="form-grid">
               <div className="form-group">
                 <label className="form-label">Full Name</label>
-                <input className="form-input" value={resume.personal_info.name || ''} onChange={(e) => updatePersonalInfo('name', e.target.value)} placeholder="John Doe" />
+                <input className="form-input" value={resume.personal_info.name || ''} onChange={(e) => updatePersonalInfo('name', e.target.value)} placeholder="Tushar Bhardwaj" />
               </div>
               <div className="form-group">
                 <label className="form-label">Job Title</label>
@@ -382,23 +387,23 @@ export default function EditorPage() {
               </div>
               <div className="form-group">
                 <label className="form-label">Email</label>
-                <input className="form-input" type="email" value={resume.personal_info.email || ''} onChange={(e) => updatePersonalInfo('email', e.target.value)} placeholder="john@example.com" />
+                <input className="form-input" type="email" value={resume.personal_info.email || ''} onChange={(e) => updatePersonalInfo('email', e.target.value)} placeholder="tusharbhardwaj2617@gmail.com" />
               </div>
               <div className="form-group">
                 <label className="form-label">Phone</label>
-                <input className="form-input" value={resume.personal_info.phone || ''} onChange={(e) => updatePersonalInfo('phone', e.target.value)} placeholder="+1 234 567 8900" />
+                <input className="form-input" value={resume.personal_info.phone || ''} onChange={(e) => updatePersonalInfo('phone', e.target.value)} placeholder="+91 7009343545" />
               </div>
               <div className="form-group">
                 <label className="form-label">Location</label>
-                <input className="form-input" value={resume.personal_info.location || ''} onChange={(e) => updatePersonalInfo('location', e.target.value)} placeholder="New York, NY" />
+                <input className="form-input" value={resume.personal_info.location || ''} onChange={(e) => updatePersonalInfo('location', e.target.value)} placeholder="Haryana, India" />
               </div>
               <div className="form-group">
                 <label className="form-label">LinkedIn</label>
-                <input className="form-input" value={resume.personal_info.linkedin || ''} onChange={(e) => updatePersonalInfo('linkedin', e.target.value)} placeholder="linkedin.com/in/johndoe" />
+                <input className="form-input" value={resume.personal_info.linkedin || ''} onChange={(e) => updatePersonalInfo('linkedin', e.target.value)} placeholder="linkedin.com/in/bhardwajtushar2004" />
               </div>
               {resume.template_id === 'modern' && (
                 <div className="form-group">
-                  <label className="form-label">Photo Upload (Cloudinary)</label>
+                  <label className="form-label">Profile Photo</label>
                   <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                     <label className={`btn btn-primary ${isUploading ? 'loading' : ''}`} style={{ cursor: 'pointer', margin: 0 }}>
                       {isUploading ? 'Uploading...' : (resume.personal_info.photoUrl ? 'Change Photo' : 'Upload Photo')}

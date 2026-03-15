@@ -31,3 +31,6 @@ yarn-error.log*
 # IDE
 .idea/
 .vscode/
+
+# Interview Prep
+INTERVIEW_PREP.md

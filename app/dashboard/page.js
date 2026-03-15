@@ -18,6 +18,7 @@ export default function Dashboard() {
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const router = useRouter();
 
+  // Check for user session on mount (shorthand auth)
   useEffect(() => {
     const stored = localStorage.getItem('user');
     if (!stored) {
@@ -29,6 +30,7 @@ export default function Dashboard() {
     fetchResumes(userData.id);
   }, [router]);
 
+  // Load all resumes for the logged-in user
   const fetchResumes = async (userId) => {
     try {
       const res = await fetch(`/api/resumes?user_id=${userId}`);
