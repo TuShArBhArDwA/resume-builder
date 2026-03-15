@@ -107,14 +107,16 @@ export default function EditorPage() {
 
       // PDF options for high quality A4 layout
       const opt = {
-        margin: 0,
+        margin: [0, 0, -1, 0], // Tiny negative bottom margin to force single page if borderline
         filename: `${resume.title || 'resume'}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
+        image: { type: 'jpeg', quality: 1.0 },
         html2canvas: { 
           scale: 2, 
           useCORS: true, 
           logging: false,
-          letterRendering: true
+          letterRendering: true,
+          scrollY: 0, // Ensure we capture from the top
+          windowWidth: document.documentElement.offsetWidth // Force consistent width
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
@@ -232,7 +234,7 @@ export default function EditorPage() {
         body: formData,
       });
       const data = await res.json();
-      
+
       if (data.secure_url) {
         updatePersonalInfo('photoUrl', data.secure_url);
       } else {
@@ -413,16 +415,16 @@ export default function EditorPage() {
                   <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
                     <label className={`btn btn-primary ${isUploading ? 'loading' : ''}`} style={{ cursor: 'pointer', margin: 0 }}>
                       {isUploading ? 'Uploading...' : (resume.personal_info.photoUrl ? 'Change Photo' : 'Upload Photo')}
-                      <input 
-                        type="file" 
-                        accept="image/*" 
-                        onChange={handleImageUpload} 
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
                         disabled={isUploading}
-                        style={{ display: 'none' }} 
+                        style={{ display: 'none' }}
                       />
                     </label>
                     {resume.personal_info.photoUrl && (
-                      <button 
+                      <button
                         className="btn btn-ghost btn-sm"
                         onClick={() => updatePersonalInfo('photoUrl', '')}
                       >
@@ -432,7 +434,7 @@ export default function EditorPage() {
                   </div>
                   {resume.personal_info.photoUrl && (
                     <div style={{ marginTop: '10px' }}>
-                       <img src={resume.personal_info.photoUrl} alt="Profile" style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '50%' }} />
+                      <img src={resume.personal_info.photoUrl} alt="Profile" style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '50%' }} />
                     </div>
                   )}
                 </div>

@@ -478,5 +478,7 @@
   .resume-executive {
     box-shadow: none;
     margin: 0;
+    max-height: 1122px; /* 1px smaller than A4 to prevent overflow */
+    overflow: hidden;
   }
 }
