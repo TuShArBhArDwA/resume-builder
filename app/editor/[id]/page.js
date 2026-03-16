@@ -102,12 +102,25 @@ export default function EditorPage() {
     setDownloading(true);
     try {
       const html2pdf = (await import('html2pdf.js')).default;
-      const element = previewRef.current;
+      
+      // Target the wrapper directly which has the scaling applied
+      const container = previewRef.current;
+      const element = container?.querySelector('.resume-preview-wrapper');
+      
       if (!element) return;
+
+      // Store original styles to restore them later
+      const originalTransform = element.style.transform;
+      const originalParentHeight = container.style.height;
+
+      // Temporarily reset scale to 1:1 for PDF capture
+      element.style.transform = 'none';
+      // Temporarily expand parent container to full height
+      container.style.height = 'auto';
 
       // PDF options for high quality A4 layout
       const opt = {
-        margin: [0, 0, -1, 0], // Tiny negative bottom margin to force single page if borderline
+        margin: [0, 0, -2, 0], // Small negative bottom margin to prevent extra page
         filename: `${resume.title || 'resume'}.pdf`,
         image: { type: 'jpeg', quality: 1.0 },
         html2canvas: { 
@@ -115,16 +128,22 @@ export default function EditorPage() {
           useCORS: true, 
           logging: false,
           letterRendering: true,
-          scrollY: 0, // Ensure we capture from the top
-          windowWidth: document.documentElement.offsetWidth // Force consistent width
+          scrollY: 0,
+          windowWidth: 794 // Match the exact A4 pixel width at 96 DPI
         },
         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
         pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
       };
 
       await html2pdf().set(opt).from(element).save();
+      
+      // Restore original styles
+      element.style.transform = originalTransform;
+      container.style.height = originalParentHeight;
+      
       showToast('PDF generated! Save it to your device.');
     } catch (err) {
+      console.error('PDF Generation Error:', err);
       showToast('Download failed', 'error');
     } finally {
       setDownloading(false);

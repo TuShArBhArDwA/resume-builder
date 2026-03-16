@@ -479,6 +479,9 @@
     box-shadow: none;
     margin: 0;
     max-height: 1122px; /* 1px smaller than A4 to prevent overflow */
+    height: 1122px;
     overflow: hidden;
+    page-break-after: avoid;
+    page-break-inside: avoid;
   }
 }
